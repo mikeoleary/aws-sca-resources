@@ -31,15 +31,7 @@
                         "0.0.0.0"
                     ],
                     "virtualPort": 3389,
-                    "pool": "rdp_pool",
-                    "securityLogProfiles": [
-                    {
-                       "bigip": "/Common/local-afm-log"
-                    }
-                    ],
-                    "policyFirewallEnforced": {
-                        "bigip": "/Common/log_all_afm"
-                    }
+                    "pool": "rdp_pool"
                 },
                 "rdp_pool": {
                     "class": "Pool",
@@ -66,15 +58,7 @@
                         "0.0.0.0"
                     ],
                     "virtualPort": 22,
-                    "pool": "ssh_pool",
-                    "securityLogProfiles": [
-                    {
-                       "bigip": "/Common/local-afm-log"
-                    }
-                    ],
-                    "policyFirewallEnforced": {
-                        "bigip": "/Common/log_all_afm"
-                    }
+                    "pool": "ssh_pool"
                 },
                 "ssh_pool": {
                     "class": "Pool",
@@ -100,15 +84,7 @@
                     "virtualAddresses": [
                         "0.0.0.0"
                     ],
-                    "virtualPort": 80,
-                    "securityLogProfiles": [
-                    {
-                       "bigip": "/Common/local-afm-log"
-                    }
-                    ],
-                    "policyFirewallEnforced": {
-                        "bigip": "/Common/log_all_afm"
-                    }
+                    "virtualPort": 80
                 },
                 "health_irule": {
                 "class": "iRule",
