@@ -69,7 +69,34 @@
                         {
                             "servicePort": 22,
                             "serverAddresses": [
-                                "10.0.4.23"
+                                "ReplaceWithMgmtIP"
+                            ]
+                        }
+                    ]
+                }
+            },            
+            "mgmt_https": {
+                "class": "Application",
+                "template": "generic",
+                "mgmt_https": {
+                    "class": "Service_TCP",
+                    "iRules": ["/Common/Shared/ip_reputation_drop"],
+                    "virtualAddresses": [
+                        "0.0.0.0"
+                    ],
+                    "virtualPort": 443,
+                    "pool": "https_pool"
+                },
+                "https_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp-half-open"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 443,
+                            "serverAddresses": [
+                                "ReplaceWithMgmtIP"
                             ]
                         }
                     ]
