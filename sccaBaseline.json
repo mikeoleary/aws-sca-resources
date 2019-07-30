@@ -55,30 +55,6 @@
                         }
                     ]
                 }
-            },
-            "mgmt_http": {
-                "class": "Application",
-                "template": "generic",
-                "mgmt_http": {
-                    "class": "Service_HTTP",
-                    "iRules": ["health_irule"],
-                    "virtualAddresses": [
-                        "0.0.0.0"
-                    ],
-                    "virtualPort": 80,
-                    "securityLogProfiles": [
-                    {
-                       "bigip": "/Common/local-afm-log"
-                    }
-                    ],
-                    "policyFirewallEnforced": {
-                        "bigip": "/Common/log_all_afm"
-                    }
-                },
-                "health_irule": {
-                "class": "iRule",
-                "iRule": "when HTTP_REQUEST {\n   HTTP::respond 200 content {\n      <html>\n         <head>\n            <title>Health Check</title>\n         </head>\n         <body>\n            System is online.\n         </body>\n      </html>\n   }\n}"
-            }
             }
         }
     }
