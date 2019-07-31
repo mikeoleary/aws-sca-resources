@@ -28,7 +28,7 @@
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
-                        "0.0.0.0"
+                        "ReplaceWithVIP1"
                     ],
                     "virtualPort": 22,
                     "pool": "bigip1_ssh_pool"
@@ -55,7 +55,7 @@
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
-                        "10.0.0.1"
+                        "ReplaceWithVIP2"
                     ],
                     "virtualPort": 22,
                     "pool": "bigip2_ssh_pool"
@@ -82,7 +82,7 @@
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
-                        "0.0.0.0"
+                        "ReplaceWithVIP1"
                     ],
                     "virtualPort": 443,
                     "pool": "https_pool"
@@ -109,7 +109,7 @@
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
-                        "10.0.0.1"
+                        "ReplaceWithVIP2"
                     ],
                     "virtualPort": 443,
                     "pool": "https_pool"
