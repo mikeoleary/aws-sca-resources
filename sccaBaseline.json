@@ -31,7 +31,7 @@
                         "0.0.0.0"
                     ],
                     "virtualPort": 22,
-                    "pool": "ssh_pool"
+                    "pool": "bigip1_ssh_pool"
                 },
                 "bigip1_ssh_pool": {
                     "class": "Pool",
@@ -58,9 +58,9 @@
                         "10.0.0.1"
                     ],
                     "virtualPort": 22,
-                    "pool": "ssh_pool"
+                    "pool": "bigip2_ssh_pool"
                 },
-                "bigip1_ssh_pool": {
+                "bigip2_ssh_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -143,7 +143,8 @@
                 "health_irule": {
                 "class": "iRule",
                 "iRule": "when HTTP_REQUEST {\n   HTTP::respond 200 content {\n      <html>\n         <head>\n            <title>Health Check</title>\n         </head>\n         <body>\n            System is online.\n         </body>\n      </html>\n   }\n}"
-            },
+				}
+			},
             "bigip2_mgmt_http": {
                 "class": "Application",
                 "template": "generic",
@@ -158,8 +159,8 @@
                 "health_irule": {
                 "class": "iRule",
                 "iRule": "when HTTP_REQUEST {\n   HTTP::respond 200 content {\n      <html>\n         <head>\n            <title>Health Check</title>\n         </head>\n         <body>\n            System is online.\n         </body>\n      </html>\n   }\n}"
+				}
             }
-            }
-        }
-    }
+		}
+	}
 }
