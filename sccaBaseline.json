@@ -21,7 +21,7 @@
         },
         "mgmt": {
             "class": "Tenant",
-            "mgmt_ssh": {
+            "bigip1_mgmt_ssh": {
                 "class": "Application",
                 "template": "generic",
                 "mgmt_ssh": {
@@ -33,7 +33,7 @@
                     "virtualPort": 22,
                     "pool": "ssh_pool"
                 },
-                "ssh_pool": {
+                "bigip1_ssh_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -42,13 +42,40 @@
                         {
                             "servicePort": 22,
                             "serverAddresses": [
-                                "ReplaceWithMgmtIP"
+                                "ReplaceWithBigIP1MgmtIP"
                             ]
                         }
                     ]
                 }
-            },            
-            "mgmt_https": {
+            },  
+            "bigip2_mgmt_ssh": {
+                "class": "Application",
+                "template": "generic",
+                "mgmt_ssh": {
+                    "class": "Service_TCP",
+                    "iRules": ["/Common/Shared/ip_reputation_drop"],
+                    "virtualAddresses": [
+                        "10.0.0.1"
+                    ],
+                    "virtualPort": 22,
+                    "pool": "ssh_pool"
+                },
+                "bigip1_ssh_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp-half-open"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 22,
+                            "serverAddresses": [
+                                "ReplaceWithBigIP2MgmtIP"
+                            ]
+                        }
+                    ]
+                }
+            }, 
+            "bigip1_mgmt_https": {
                 "class": "Application",
                 "template": "generic",
                 "mgmt_https": {
@@ -69,13 +96,40 @@
                         {
                             "servicePort": 443,
                             "serverAddresses": [
-                                "ReplaceWithMgmtIP"
+                                "ReplaceWithBigIP1MgmtIP"
                             ]
                         }
                     ]
                 }
             },
-            "mgmt_http": {
+            "bigip2_mgmt_https": {
+                "class": "Application",
+                "template": "generic",
+                "mgmt_https": {
+                    "class": "Service_TCP",
+                    "iRules": ["/Common/Shared/ip_reputation_drop"],
+                    "virtualAddresses": [
+                        "10.0.0.1"
+                    ],
+                    "virtualPort": 443,
+                    "pool": "https_pool"
+                },
+                "https_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "tcp-half-open"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 443,
+                            "serverAddresses": [
+                                "ReplaceWithBigIP2MgmtIP"
+                            ]
+                        }
+                    ]
+                }
+            },
+            "bigip1_mgmt_http": {
                 "class": "Application",
                 "template": "generic",
                 "mgmt_http": {
@@ -83,6 +137,21 @@
                     "iRules": ["health_irule"],
                     "virtualAddresses": [
                         "0.0.0.0"
+                    ],
+                    "virtualPort": 80
+                },
+                "health_irule": {
+                "class": "iRule",
+                "iRule": "when HTTP_REQUEST {\n   HTTP::respond 200 content {\n      <html>\n         <head>\n            <title>Health Check</title>\n         </head>\n         <body>\n            System is online.\n         </body>\n      </html>\n   }\n}"
+            },
+            "bigip2_mgmt_http": {
+                "class": "Application",
+                "template": "generic",
+                "mgmt_http": {
+                    "class": "Service_HTTP",
+                    "iRules": ["health_irule"],
+                    "virtualAddresses": [
+                        "10.0.0.1"
                     ],
                     "virtualPort": 80
                 },
