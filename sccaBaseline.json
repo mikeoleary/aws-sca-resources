@@ -101,6 +101,25 @@
                         }
                     ]
                 }
+            },
+	    "forward_outbound": {
+                "class": "Application",
+                "template": "generic",
+                "forward_outbound": {
+                    "class": "Service_L4",
+		    "layer4": "any",
+		    "translateServerAddress": false,
+		    "translateServerPort": false,
+                    "virtualAddresses": [
+                        "0.0.0.0"
+                    ],
+                    "virtualPort": 0,
+                    "snat": "auto",
+			"allowVlans": 
+			[
+			    "internal"
+			]
+                }
             }
 	}
     }
