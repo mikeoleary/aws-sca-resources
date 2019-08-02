@@ -24,7 +24,7 @@
             "bigip1_mgmt_ssh": {
                 "class": "Application",
                 "template": "generic",
-                "mgmt_ssh": {
+                "bigip1_mgmt_ssh": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
@@ -51,7 +51,7 @@
             "bigip2_mgmt_ssh": {
                 "class": "Application",
                 "template": "generic",
-                "mgmt_ssh": {
+                "bigip2_mgmt_ssh": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
@@ -78,16 +78,16 @@
             "bigip1_mgmt_https": {
                 "class": "Application",
                 "template": "generic",
-                "mgmt_https": {
+                "bigip1_mgmt_https": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
                         "ReplaceWithVIP1"
                     ],
                     "virtualPort": 443,
-                    "pool": "https_pool"
+                    "pool": "bigip1_https_pool"
                 },
-                "https_pool": {
+                "bigip1_https_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -105,16 +105,16 @@
             "bigip2_mgmt_https": {
                 "class": "Application",
                 "template": "generic",
-                "mgmt_https": {
+                "bigip2_mgmt_https": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
                         "ReplaceWithVIP2"
                     ],
                     "virtualPort": 443,
-                    "pool": "https_pool"
+                    "pool": "bigip2_https_pool"
                 },
-                "https_pool": {
+                "bigip2_https_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -128,23 +128,7 @@
                         }
                     ]
                 }
-            },
-            "mgmt_http": {
-                "class": "Application",
-                "template": "generic",
-                "mgmt_http": {
-                    "class": "Service_HTTP",
-                    "iRules": ["health_irule"],
-                    "virtualAddresses": [
-                        "0.0.0.0"
-                    ],
-                    "virtualPort": 80
-                },
-                "health_irule": {
-                "class": "iRule",
-                "iRule": "when HTTP_REQUEST {\n   HTTP::respond 200 content {\n      <html>\n         <head>\n            <title>Health Check</title>\n         </head>\n         <body>\n            System is online.\n         </body>\n      </html>\n   }\n}"
-				}
-			}
-		}
+            }
+	}
 	}
 }
