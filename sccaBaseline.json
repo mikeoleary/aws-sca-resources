@@ -21,19 +21,19 @@
         },
         "mgmt": {
             "class": "Tenant",
-            "bigip1_mgmt_ssh": {
+            "jumphost_mgmt_ssh": {
                 "class": "Application",
                 "template": "generic",
-                "bigip1_mgmt_ssh": {
+                "jumphost_mgmt_ssh": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
                         "ReplaceWithVIP1"
                     ],
                     "virtualPort": 22,
-                    "pool": "bigip1_ssh_pool"
+                    "pool": "jumphost_ssh_pool"
                 },
-                "bigip1_ssh_pool": {
+                "jumphost_ssh_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -42,40 +42,13 @@
                         {
                             "servicePort": 22,
                             "serverAddresses": [
-                                "ReplaceWithBigIP1MgmtIP"
+                                "ReplaceWithJumpHostIP"
                             ]
                         }
                     ]
                 }
             },  
-            "bigip2_mgmt_ssh": {
-                "class": "Application",
-                "template": "generic",
-                "bigip2_mgmt_ssh": {
-                    "class": "Service_TCP",
-                    "iRules": ["/Common/Shared/ip_reputation_drop"],
-                    "virtualAddresses": [
-                        "ReplaceWithVIP2"
-                    ],
-                    "virtualPort": 22,
-                    "pool": "bigip2_ssh_pool"
-                },
-                "bigip2_ssh_pool": {
-                    "class": "Pool",
-                    "monitors": [
-                        "tcp-half-open"
-                    ],
-                    "members": [
-                        {
-                            "servicePort": 22,
-                            "serverAddresses": [
-                                "ReplaceWithBigIP2MgmtIP"
-                            ]
-                        }
-                    ]
-                }
-            }, 
-            "bigip1_mgmt_https": {
+            "jumphost_mgmt_https": {
                 "class": "Application",
                 "template": "generic",
                 "bigip1_mgmt_https": {
@@ -85,9 +58,9 @@
                         "ReplaceWithVIP1"
                     ],
                     "virtualPort": 443,
-                    "pool": "bigip1_https_pool"
+                    "pool": "jumphost_https_pool"
                 },
-                "bigip1_https_pool": {
+                "jumphost_https_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -96,25 +69,25 @@
                         {
                             "servicePort": 443,
                             "serverAddresses": [
-                                "ReplaceWithBigIP1MgmtIP"
+                                "ReplaceWithJumpHostIP"
                             ]
                         }
                     ]
                 }
             },
-            "bigip2_mgmt_https": {
+            "jumphost_mgmt_http": {
                 "class": "Application",
                 "template": "generic",
-                "bigip2_mgmt_https": {
+                "bigip1_mgmt_https": {
                     "class": "Service_TCP",
                     "iRules": ["/Common/Shared/ip_reputation_drop"],
                     "virtualAddresses": [
-                        "ReplaceWithVIP2"
+                        "ReplaceWithVIP1"
                     ],
                     "virtualPort": 443,
-                    "pool": "bigip2_https_pool"
+                    "pool": "jumphost_http_pool"
                 },
-                "bigip2_https_pool": {
+                "jumphost_http_pool": {
                     "class": "Pool",
                     "monitors": [
                         "tcp-half-open"
@@ -123,12 +96,12 @@
                         {
                             "servicePort": 443,
                             "serverAddresses": [
-                                "ReplaceWithBigIP2MgmtIP"
+                                "ReplaceWithJumpHostIP"
                             ]
                         }
                     ]
                 }
             }
 	}
-	}
+    }
 }
