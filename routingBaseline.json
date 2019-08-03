@@ -70,7 +70,7 @@
                     "virtualAddresses": [
                         "ReplaceWithVIP1"
                     ],
-                    "virtualPort": 443,
+                    "virtualPort": 80,
                     "pool": "jumphost_http_pool"
                 },
                 "jumphost_http_pool": {
@@ -80,7 +80,7 @@
                     ],
                     "members": [
                         {
-                            "servicePort": 443,
+                            "servicePort": 80,
                             "serverAddresses": [
                                 "ReplaceWithJumpHostIP"
                             ]
